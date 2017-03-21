@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/soft_gray">
+
+    <com.zhy.autolayout.AutoRelativeLayout
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/toolbarcolor"
+        android:elevation="4dp">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="150px"
+            android:layout_height="150px"
+            android:layout_alignParentLeft="true"
+            android:padding="40px"
+            android:scaleType="centerInside"
+            android:src="@drawable/back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="合同编辑"
+            android:textColor="@color/white"
+            android:textSize="50px" />
+
+        <TextView
+            android:id="@+id/tv_send"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:paddingRight="40px"
+            android:text="发送"
+            android:textColor="@color/white"
+            android:textSize="50px" />
+
+    </com.zhy.autolayout.AutoRelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/add_newcontract"
+        android:layout_below="@+id/title">
+
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/normal_space_height" />
+
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:id="@+id/re_ContractType"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ll_item_height"
+                android:background="@drawable/item_touch"
+                android:clickable="true"
+                android:padding="40px">
+
+                <TextView
+                    android:id="@+id/tv_contractType"
+                    style="@style/normalTextView"
+                    android:text="选择合同类型" />
+
+                <ImageView
+                    android:layout_width="70px"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/arrow_right" />
+
+            </com.zhy.autolayout.AutoRelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#a5d6d6d6"></View>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/normal_space_height" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/re_ContractName"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/ll_item_height"
+                android:background="@drawable/item_touch"
+                android:clickable="true"
+                android:padding="40px">
+
+                <TextView
+                    android:id="@+id/tv_contractName"
+                    style="@style/normalTextView"
+                    android:text="合同名称:" />
+
+                <TextView
+                    android:id="@+id/tv_contractName2"
+                    style="@style/normalTextView"
+                    android:text="合同名称" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#a5d6d6d6"></View>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/normal_space_height" />
+
+            <com.zhy.autolayout.AutoLinearLayout
+                android:id="@+id/re_ContractSummery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/item_touch"
+                android:clickable="true"
+                android:gravity="top"
+                android:orientation="horizontal"
+                android:padding="40px">
+
+                <TextView
+                    android:id="@+id/tv_contractSummery"
+                    style="@style/normalTextView"
+                    android:text="合同简介:" />
+
+                <TextView
+                    android:id="@+id/tv_contractSummery2"
+                    style="@style/normalTextView"
+                    android:text="内容" />
+
+            </com.zhy.autolayout.AutoLinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="#a5d6d6d6"></View>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/normal_space_height" />
+
+            <FrameLayout
+                android:id="@+id/frame_AddPicAttach"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="添加图片附件"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+            </FrameLayout>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/normal_space_height" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="合同条目"
+                    android:textColor="@color/toolbarcolor" />
+
+                <TextView
+                    android:visibility="invisible"
+                    android:id="@+id/tv_done"
+                    android:layout_toLeftOf="@+id/tv_edititems"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingRight="10dp"
+                    android:text="完成"
+                    android:textColor="@color/toolbarcolor" />
+
+                <TextView
+                    android:id="@+id/tv_edititems"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="10dp"
+                    android:text="编辑"
+                    android:textColor="@color/red" />
+
+            </RelativeLayout>
+
+            <com.example.xps.hbctradeltd.v.view.HBCListView
+                android:id="@+id/lv_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/add_newcontract"
+                android:layout_below="@+id/title"
+                android:background="#F0F0F0"
+                android:divider="@color/soft_gray"
+                android:dividerHeight="@dimen/normal_space_height"></com.example.xps.hbctradeltd.v.view.HBCListView>
+
+        </com.zhy.autolayout.AutoLinearLayout>
+
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/add_newcontract"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/toolbarcolor"
+        android:gravity="center"
+        android:text="添加合同条目"
+        android:textColor="#ffffff"
+        android:textSize="60px" />
+
+</com.zhy.autolayout.AutoRelativeLayout>

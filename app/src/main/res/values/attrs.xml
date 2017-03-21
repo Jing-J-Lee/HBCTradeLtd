@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="toggleable" parent="android.support.v7.appcompat.R.styleable.android.xml.">
+
+
+
+    </declare-styleable>
+
+</resources>

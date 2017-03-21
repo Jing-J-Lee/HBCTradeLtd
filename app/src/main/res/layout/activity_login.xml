@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_main_bg"
+    android:gravity="center">
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="100px"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="150px"
+            android:text="Welcome"
+            android:textColor="#ffffff"
+            android:textSize="140px" />
+
+        <EditText
+            android:id="@+id/et_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30px"
+            android:background="@drawable/login_etbk"
+            android:hint="手机号码"
+            android:inputType="phone"
+            android:maxLength="11"
+            android:padding="40px"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="50px" />
+
+        <EditText
+            android:id="@+id/et_pass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30px"
+            android:background="@drawable/login_etbk"
+            android:hint="密码"
+            android:inputType="textPassword"
+            android:maxLength="11"
+            android:padding="40px"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="50px" />
+
+        <Button
+            android:id="@+id/bt_login"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_bt_selec"
+            android:gravity="center"
+            android:padding="40px"
+            android:text="立即登录"
+            android:textColor="#ffffff"
+            android:textSize="60px"
+            android:textStyle="normal" />
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+</com.zhy.autolayout.AutoRelativeLayout>

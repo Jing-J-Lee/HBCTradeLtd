@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:gravity="center_vertical"
+    android:layout_height="@dimen/ll_item_height_fat">
+
+    <ImageView
+        android:id="@+id/iv_head"
+        android:layout_width="200px"
+        android:layout_height="200px"
+        android:layout_alignParentLeft="true"
+        android:padding="20px"
+        android:scaleType="centerInside"
+        android:src="@drawable/contact_circle" />
+
+    <TextView
+        android:layout_centerVertical="true"
+        android:id="@+id/child_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="15px"
+        android:layout_toRightOf="@+id/iv_head"
+        android:gravity="center_vertical"
+        android:text="这是子item"
+        android:textColor="@color/black"
+        android:textSize="50px" />
+
+    <CheckBox
+        android:layout_centerVertical="true"
+        android:id="@+id/cb_select"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:padding="20px" />
+
+</com.zhy.autolayout.AutoRelativeLayout>
