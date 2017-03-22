@@ -2,7 +2,8 @@ package com.example.xps.hbctradeltd.v.login;
 
 import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -14,23 +15,48 @@ import android.widget.Toast;
 import com.example.xps.hbctradeltd.R;
 import com.example.xps.hbctradeltd.c.AppCommond;
 import com.example.xps.hbctradeltd.c.UserNetWork;
+import com.example.xps.hbctradeltd.d.bean.JpushResp;
 import com.example.xps.hbctradeltd.d.bean.LoginResp;
 import com.example.xps.hbctradeltd.v.BaseActivity;
-import com.example.xps.hbctradeltd.v.LauncherActivity;
 import com.example.xps.hbctradeltd.v.main.MainActivity;
+import com.example.xps.hbctradeltd.v.utils.SharedPreferencesUtil;
+import com.example.xps.hbctradeltd.v.utils.ToastShow;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
 import rx.Subscriber;
 
 public class LoginActivity extends BaseActivity {
+
+    private static final int LOGINSUCCESS=0;
+    private static final int LOGINFAILD=1;
+
     @BindView(R.id.et_phone)
     EditText etPhone;
     @BindView(R.id.et_pass)
     EditText etPass;
     @BindView(R.id.bt_login)
     Button btLogin;
+
+    Handler handler=new Handler(){
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case LOGINSUCCESS:
+                    loadingDialog.dismiss();
+                    break;
+
+                case LOGINFAILD:
+                    loadingDialog.dismiss();
+                    break;
+
+            }
+        }
+    };
 
     @Override
     protected int getLayout() {
@@ -78,6 +104,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     void dologin() {
+        loadingDialog.show();
         UserNetWork.doLogin(etPhone.getText().toString(), etPass.getText().toString(), new Subscriber<LoginResp>() {
             @Override
             public void onStart() {
@@ -90,15 +117,29 @@ public class LoginActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable e) {
-
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 e.printStackTrace();
             }
 
             @Override
             public void onNext(LoginResp loginResp) {
                 Log.e("doLogin", loginResp.toString());
+//                Log.e("jpush", JPushInterface.getRegistrationID(getApplicationContext()));
+                if (loginResp.getReturn_code().equals("SUCCESS")){
+                    SharedPreferencesUtil.setMsg("uid",loginResp.getReturn_body().getUid());
+                    SharedPreferencesUtil.setMsg("userName",loginResp.getReturn_body().getTrue_name());
+                    SharedPreferencesUtil.setMsg("nickName",loginResp.getReturn_body().getNickname());
+                    SharedPreferencesUtil.setLogin(true);
+                    handler.sendEmptyMessage(LOGINSUCCESS);
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                }else {
+                    ToastShow.getInstance(LoginActivity.this).toastShow("登录失败");
+
+                    handler.sendEmptyMessage(LOGINFAILD);
+                }
             }
         });
     }
+
+
 }

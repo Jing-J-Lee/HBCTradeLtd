@@ -28,8 +28,12 @@ import android.view.ViewOutlineProvider;
 import android.widget.TextView;
 
 import com.example.xps.hbctradeltd.R;
+import com.example.xps.hbctradeltd.c.UserNetWork;
+import com.example.xps.hbctradeltd.d.bean.LoginResp;
 import com.example.xps.hbctradeltd.v.folder.FolderActivity;
 import com.example.xps.hbctradeltd.v.user.UserInfoActivity;
+import com.example.xps.hbctradeltd.v.utils.SharedPreferencesUtil;
+import com.example.xps.hbctradeltd.v.utils.ToastShow;
 import com.zhy.autolayout.AutoLinearLayout;
 
 import java.util.ArrayList;
@@ -37,6 +41,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import rx.Subscriber;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, SwipeRefreshLayout.OnRefreshListener {
@@ -84,9 +89,11 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         mOutlineProviderCircle = new ElevationViewOutlineProvider();
-        aull_tab.setOutlineProvider(mOutlineProviderCircle);
-        aull_tab.setClipToOutline(true);
-        aull_tab.setElevation(mElevation);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            aull_tab.setOutlineProvider(mOutlineProviderCircle);
+            aull_tab.setClipToOutline(true);
+            aull_tab.setElevation(mElevation);
+        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
@@ -191,9 +198,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_info) {
+        if (id == R.id.nav_info) {//个人信息
             startActivity(new Intent(this, UserInfoActivity.class));
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_gallery) {//退出登录
 
         }
 
@@ -237,5 +244,29 @@ public class MainActivity extends AppCompatActivity
         public void getOutline(View view, Outline outline) {
             outline.setRoundRect(-mElevation, 0, view.getWidth() + mElevation, view.getHeight(), 0);
         }
+    }
+
+
+    void logOut(){
+        UserNetWork.doLogout(SharedPreferencesUtil.getMsg("uid"), new Subscriber<LoginResp>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(LoginResp loginResp) {
+                if (loginResp.getReturn_code().equals("SUCCESS")) {
+                    ToastShow.getInstance(MainActivity.this).toastShow("退出成功");
+                }else {
+                    Log.e("ss",loginResp.toString());
+                }
+            }
+        });
     }
 }

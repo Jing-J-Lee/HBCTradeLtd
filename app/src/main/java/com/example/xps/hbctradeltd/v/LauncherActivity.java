@@ -7,6 +7,7 @@ import com.example.xps.hbctradeltd.R;
 import com.example.xps.hbctradeltd.c.AppCommond;
 import com.example.xps.hbctradeltd.v.login.LoginActivity;
 import com.example.xps.hbctradeltd.v.main.MainActivity;
+import com.example.xps.hbctradeltd.v.utils.SharedPreferencesUtil;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -33,9 +34,14 @@ public class LauncherActivity extends BaseActivity {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                startActivity(new Intent(LauncherActivity.this, LoginActivity.class));
-                overridePendingTransition(R.animator.alpha_in, R.animator.alpha_out);
-                finish();
+                if (SharedPreferencesUtil.isLogin()) {
+                    startActivity(new Intent(LauncherActivity.this, MainActivity.class));
+                    finish();
+                }else {
+                    startActivity(new Intent(LauncherActivity.this, LoginActivity.class));
+                    overridePendingTransition(R.animator.alpha_in, R.animator.alpha_out);
+                    finish();
+                }
             }
         };
         timer.schedule(timerTask, 500);

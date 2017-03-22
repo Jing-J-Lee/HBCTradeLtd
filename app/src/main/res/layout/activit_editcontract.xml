@@ -70,13 +70,26 @@
                     android:id="@+id/tv_contractType"
                     style="@style/normalTextView"
                     android:text="选择合同类型" />
+                    <com.zhy.autolayout.AutoLinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        >
+                        <TextView
+                            android:id="@+id/contract_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/normalTextView"
+                            />
 
-                <ImageView
-                    android:layout_width="70px"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/arrow_right" />
+                        <ImageView
+                            android:layout_width="70px"
+                            android:layout_height="match_parent"
+                            android:src="@drawable/arrow_right" />
+                    </com.zhy.autolayout.AutoLinearLayout>
+
 
             </com.zhy.autolayout.AutoRelativeLayout>
 
