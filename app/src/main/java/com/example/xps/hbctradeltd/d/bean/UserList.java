@@ -7,7 +7,6 @@ import java.util.List;
  */
 
 public class UserList {
-
     @Override
     public String toString() {
         return "UserList{" +
@@ -20,7 +19,7 @@ public class UserList {
     /**
      * return_code : SUCCESS
      * return_msg : 查询成功
-     * return_body : [{"d_id":"1","department_name":"财务部","staff":[{"uid":"2","nickname":"示例","true_name":"示例","head_img":"/upload/2017320/1489980415.jpg"}]},{"d_id":"2","department_name":"市场部","staff":[{"uid":"1","nickname":"示例","true_name":"示例","head_img":"/upload/2017320/1489980415.jpg"},{"uid":"3","nickname":"示例","true_name":"示例","head_img":"/upload/2017320/1489980415.jpg"}]}]
+     * return_body : [{"d_id":"1","department_name":"财务部","Staff":[{"uid":"4","nickname":"清洁工","true_name":"徐征","head_img":"/upload/2017320/1489980415.jpg"}]},{"d_id":"2","department_name":"市场部","Staff":[{"uid":"1","nickname":"主管领导","true_name":"刘云龙","head_img":"/upload/2017320/1489980415.jpg"},{"uid":"3","nickname":"总经理","true_name":"王虎","head_img":"/upload/2017320/1489980415.jpg"},{"uid":"5","nickname":"保安","true_name":"李静","head_img":"/upload/2017320/1489980415.jpg"}]}]
      */
 
     private String return_code;
@@ -52,39 +51,19 @@ public class UserList {
     }
 
     public static class ReturnBodyBean {
-
-        String userId = "";
-        boolean isChecked = false;
-
-        public String getUserId() {
-            return userId;
-        }
-
-        public void setUserId(String userId) {
-            this.userId = userId;
-        }
-
-        public boolean isChecked() {
-            return isChecked;
-        }
-
-        public void setChecked(boolean checked) {
-            isChecked = checked;
-        }
-
         @Override
         public String toString() {
             return "ReturnBodyBean{" +
                     "d_id='" + d_id + '\'' +
                     ", department_name='" + department_name + '\'' +
-                    ", staff=" + staff +
+                    ", Staff=" + staff +
                     '}';
         }
 
         /**
          * d_id : 1
          * department_name : 财务部
-         * staff : [{"uid":"2","nickname":"示例","true_name":"示例","head_img":"/upload/2017320/1489980415.jpg"}]
+         * Staff : [{"uid":"4","nickname":"清洁工","true_name":"徐征","head_img":"/upload/2017320/1489980415.jpg"}]
          */
 
         private String d_id;
@@ -116,7 +95,6 @@ public class UserList {
         }
 
         public static class StaffBean {
-
             @Override
             public String toString() {
                 return "StaffBean{" +
@@ -128,9 +106,9 @@ public class UserList {
             }
 
             /**
-             * uid : 2
-             * nickname : 示例
-             * true_name : 示例
+             * uid : 4
+             * nickname : 清洁工
+             * true_name : 徐征
              * head_img : /upload/2017320/1489980415.jpg
              */
 

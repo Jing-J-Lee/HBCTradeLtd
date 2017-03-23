@@ -258,7 +258,6 @@ public class EditContractActivity extends BaseActivity {
                 if (tvEdititems.getText().equals("编辑")) {
                     showEdit();
                 } else if (tvEdititems.getText().equals("删除")) {
-                    Log.e("onClick", "删除");
                     adapter.deleteItem();
                 }
 
