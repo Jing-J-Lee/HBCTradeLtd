@@ -1,5 +1,6 @@
 package com.example.xps.hbctradeltd.v.main;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Outline;
@@ -31,6 +32,7 @@ import com.example.xps.hbctradeltd.R;
 import com.example.xps.hbctradeltd.c.UserNetWork;
 import com.example.xps.hbctradeltd.d.bean.LoginResp;
 import com.example.xps.hbctradeltd.v.folder.FolderActivity;
+import com.example.xps.hbctradeltd.v.login.LoginActivity;
 import com.example.xps.hbctradeltd.v.user.UserInfoActivity;
 import com.example.xps.hbctradeltd.v.utils.SharedPreferencesUtil;
 import com.example.xps.hbctradeltd.v.utils.ToastShow;
@@ -134,6 +136,7 @@ public class MainActivity extends AppCompatActivity
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @SuppressLint("NewApi")
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
@@ -201,7 +204,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_info) {//个人信息
             startActivity(new Intent(this, UserInfoActivity.class));
         } else if (id == R.id.nav_gallery) {//退出登录
-
+            logOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -263,6 +266,8 @@ public class MainActivity extends AppCompatActivity
             public void onNext(LoginResp loginResp) {
                 if (loginResp.getReturn_code().equals("SUCCESS")) {
                     ToastShow.getInstance(MainActivity.this).toastShow("退出成功");
+                    SharedPreferencesUtil.setLogin(false);
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }else {
                     Log.e("ss",loginResp.toString());
                 }
