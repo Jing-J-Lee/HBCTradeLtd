@@ -28,6 +28,7 @@ public class ContactExpandableListViewAdapter extends BaseExpandableListAdapter 
         this.context = context;
         this.departmentInfos = departmentInfos;
 
+
     }
 
     @Override
