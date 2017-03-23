@@ -29,7 +29,9 @@ import android.view.ViewOutlineProvider;
 import android.widget.TextView;
 
 import com.example.xps.hbctradeltd.R;
+import com.example.xps.hbctradeltd.c.ContractNetWork;
 import com.example.xps.hbctradeltd.c.UserNetWork;
+import com.example.xps.hbctradeltd.d.bean.ContractList;
 import com.example.xps.hbctradeltd.d.bean.LoginResp;
 import com.example.xps.hbctradeltd.v.folder.FolderActivity;
 import com.example.xps.hbctradeltd.v.login.LoginActivity;
@@ -39,6 +41,7 @@ import com.example.xps.hbctradeltd.v.utils.ToastShow;
 import com.zhy.autolayout.AutoLinearLayout;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,31 +61,30 @@ public class MainActivity extends AppCompatActivity
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.aull_tab)
     AutoLinearLayout aull_tab;
-
     ContractAdapterMain adapter;
     int lastVisibleItem = 0;
     int firstVisibleItem = 0;
     int mElevation = 5;
     private ViewOutlineProvider mOutlineProviderCircle;
 
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-            if (msg.what == 1) {
-                ArrayList<String> l = new ArrayList<>();
-                l.add("1");
-                l.add("2");
-                l.add("3");
-                adapter.adddata(l);
-                swipeRefreshLayout.setRefreshing(false);
-            } else if (msg.what == 0) {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        }
-
-    };
+//    Handler handler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//
+//            if (msg.what == 1) {
+////                ArrayList<String> l = new ArrayList<>();
+////                l.add("1");
+////                l.add("2");
+////                l.add("3");
+////                adapter.adddata(l);
+//                swipeRefreshLayout.setRefreshing(false);
+//            } else if (msg.what == 0) {
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        }
+//
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,23 +113,23 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ArrayList<String> list = new ArrayList<>();
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("1");
-        list.add("2");
-        list.add("3");
-        list.add("1");
-        list.add("2");
-        list.add("3");
-
-        adapter = new ContractAdapterMain(this, list);
+//        ArrayList<String> list = new ArrayList<>();
+//        list.add("1");
+//        list.add("2");
+//        list.add("3");
+//        list.add("1");
+//        list.add("2");
+//        list.add("3");
+//        list.add("1");
+//        list.add("2");
+//        list.add("3");
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         layoutManager.setOrientation(OrientationHelper.VERTICAL);
-        recyclerView.setAdapter(adapter);
+
+        getContactList();
+
         //recyclerView.addItemDecoration( new DividerGridItemDecoration(this ));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -142,7 +144,7 @@ public class MainActivity extends AppCompatActivity
                 super.onScrollStateChanged(recyclerView, newState);
                 if (newState == RecyclerView.SCROLL_STATE_IDLE//如果当前没有滚动 而且是最后一条
                         && lastVisibleItem + 1 == adapter.getItemCount()) {
-                    handler.sendEmptyMessageDelayed(1, 1000);
+//                    handler.sendEmptyMessageDelayed(1, 1000);
                 } else if (newState == RecyclerView.SCROLL_STATE_IDLE
                         && firstVisibleItem == 0) {
                     aull_tab.setElevation(0);//如果滚动到了第一条取消阴影
@@ -238,7 +240,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onRefresh() {
-        handler.sendEmptyMessageDelayed(0, 3000);
+//        handler.sendEmptyMessageDelayed(0, 3000);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -270,6 +272,34 @@ public class MainActivity extends AppCompatActivity
                     startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 }else {
                     Log.e("ss",loginResp.toString());
+                }
+            }
+        });
+    }
+
+
+    void getContactList(){
+        ContractNetWork.getContract(SharedPreferencesUtil.getMsg("uid"), new Subscriber<ContractList>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onNext(ContractList contractList) {
+                Log.e("ss",contractList.toString());
+
+                if (contractList.getReturn_code().equals("SUCCESS")) {
+                    List<ContractList.ReturnBodyBean> return_body = contractList.getReturn_body();
+                    adapter = new ContractAdapterMain(getApplicationContext(),return_body);
+//                    adapter.adddata(return_body);
+                    recyclerView.setAdapter(adapter);
+//                    adapter.notifyDataSetChanged();
                 }
             }
         });
