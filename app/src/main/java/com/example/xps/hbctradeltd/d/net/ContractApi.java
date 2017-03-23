@@ -1,5 +1,6 @@
 package com.example.xps.hbctradeltd.d.net;
 
+import com.example.xps.hbctradeltd.d.bean.ContractList;
 import com.example.xps.hbctradeltd.d.bean.ContractTypeDetailResp;
 import com.example.xps.hbctradeltd.d.bean.ContractTypeResp;
 
@@ -21,4 +22,7 @@ public interface ContractApi {
     @FormUrlEncoded
     @POST("contract/query_type_detail")
     Observable<ContractTypeDetailResp> queryContractTypeDetail(@Field("tid") String uid);
+    @FormUrlEncoded
+    @POST("contract/query_contract_list")
+    Observable<ContractList> queryContract(@Field("uid") String uid);
 }
