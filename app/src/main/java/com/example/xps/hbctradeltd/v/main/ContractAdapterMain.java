@@ -65,6 +65,12 @@ public class ContractAdapterMain extends RecyclerView.Adapter<ContractAdapterMai
         holder.item_ll.setOutlineProvider(mOutlineProviderCircle);
         holder.item_ll.setClipToOutline(true);
         holder.item_ll.setElevation(mElevation);
+        holder.item_ll.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
         holder.time.setText(mDatas.get(position).getCreate_time());
         holder.person.setText(mDatas.get(position).getTrue_name());
         holder.detail.setText(mDatas.get(position).getName());

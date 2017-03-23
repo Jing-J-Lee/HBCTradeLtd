@@ -4,13 +4,19 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_info"
-            android:title="个人信息" />
+            android:title="个人信息"
+            android:icon="@drawable/head2"
+            />
         <item
             android:id="@+id/nav_us"
-            android:title="关于我们" />
+            android:title="关于我们"
+            android:icon="@drawable/about"
+            />
         <item
             android:id="@+id/nav_gallery"
-            android:title="退出登录" />
+            android:title="退出登录"
+            android:icon="@drawable/logout"
+            />
     </group>
 
 </menu>

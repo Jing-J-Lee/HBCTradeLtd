@@ -40,23 +40,23 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.bt_login)
     Button btLogin;
 
-    Handler handler=new Handler(){
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case LOGINSUCCESS:
-                    loadingDialog.dismiss();
-                    break;
-
-                case LOGINFAILD:
-                    loadingDialog.dismiss();
-                    break;
-
-            }
-        }
-    };
+//    Handler handler=new Handler(){
+//
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//            switch (msg.what) {
+//                case LOGINSUCCESS:
+//                    loadingDialog.dismiss();
+//                    break;
+//
+//                case LOGINFAILD:
+//                    loadingDialog.dismiss();
+//                    break;
+//
+//            }
+//        }
+//    };
 
     @Override
     protected int getLayout() {
@@ -130,16 +130,15 @@ public class LoginActivity extends BaseActivity {
                     SharedPreferencesUtil.setMsg("userName",loginResp.getReturn_body().getTrue_name());
                     SharedPreferencesUtil.setMsg("nickName",loginResp.getReturn_body().getNickname());
                     SharedPreferencesUtil.setLogin(true);
-                    handler.sendEmptyMessage(LOGINSUCCESS);
+                    loadingDialog.dismiss();
+                    ToastShow.getInstance(LoginActivity.this).toastShow(loginResp.getReturn_msg());
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
                 }else {
-                    ToastShow.getInstance(LoginActivity.this).toastShow("登录失败");
-
-                    handler.sendEmptyMessage(LOGINFAILD);
+                    ToastShow.getInstance(LoginActivity.this).toastShow(loginResp.getReturn_msg());
+                    loadingDialog.dismiss();
                 }
             }
         });
     }
-
-
 }

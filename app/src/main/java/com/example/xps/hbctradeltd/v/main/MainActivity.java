@@ -67,24 +67,24 @@ public class MainActivity extends AppCompatActivity
     int mElevation = 5;
     private ViewOutlineProvider mOutlineProviderCircle;
 
-//    Handler handler = new Handler() {
-//        @Override
-//        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-//
-//            if (msg.what == 1) {
-////                ArrayList<String> l = new ArrayList<>();
-////                l.add("1");
-////                l.add("2");
-////                l.add("3");
-////                adapter.adddata(l);
-//                swipeRefreshLayout.setRefreshing(false);
-//            } else if (msg.what == 0) {
-//                swipeRefreshLayout.setRefreshing(false);
-//            }
-//        }
-//
-//    };
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            if (msg.what == 1) {
+//                ArrayList<String> l = new ArrayList<>();
+//                l.add("1");
+//                l.add("2");
+//                l.add("3");
+//                adapter.adddata(l);
+                swipeRefreshLayout.setRefreshing(false);
+            } else if (msg.what == 0) {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        }
+
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
