@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ForkJoinPool;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,9 +37,9 @@ public class ContactActivity extends BaseActivity {
     AutoRelativeLayout title;
     @BindView(R.id.expandablelistview)
     ExpandableListView expandablelistview;
-    Map<String, List<ContactUserBean>> dataset;
-    List<ContactUserBean> list;
-    ContactUserBean bean;
+    Map<String, List<UserList.ReturnBodyBean>> dataset;
+    List<UserList.ReturnBodyBean> list;
+    UserList.ReturnBodyBean bean;
     String[] parentList;
 
     private static final int SUCCESS=0;
@@ -63,6 +64,7 @@ public class ContactActivity extends BaseActivity {
 
     @Override
     protected void setData() {
+        userList();
 //        Map<String, List<ContactUserBean>> dataset = new HashMap<>();
 //        String[] parentList = new String[]{"财务部", "审计部", "市场部","营销部","步步高"};
 //        List<ContactUserBean> 财务部 = new ArrayList<>();
@@ -140,6 +142,23 @@ public class ContactActivity extends BaseActivity {
                 if (userList.getReturn_code().equals("SUCCESS")) {
                     List<UserList.ReturnBodyBean> return_body = userList.getReturn_body();
 
+                    parentList=new String[return_body.size()];
+                    dataset=new HashMap<String, List<UserList.ReturnBodyBean>>();
+                    list=new ArrayList<UserList.ReturnBodyBean>();
+                    for (int i = 0; i < return_body.size(); i++) {
+                        bean=new UserList.ReturnBodyBean();
+//                        parentList[i]=return_body.get(i).getDepartment_name();
+                        bean.setD_id(return_body.get(i).getD_id());
+                        bean.setDepartment_name(return_body.get(i).getDepartment_name());
+                        bean.setStaff(return_body.get(i).getStaff());
+//                        staffBean= (UserList.ReturnBodyBean.StaffBean) bean.getStaff();
+                        parentList[i]=bean.getDepartment_name();
+                        list.add(bean);
+                    }
+                    for (int i = 0; i < parentList.length; i++) {
+                        dataset.put(parentList[i],list);
+                    }
+                    handler.sendEmptyMessage(SUCCESS);
                 }
             }
         });

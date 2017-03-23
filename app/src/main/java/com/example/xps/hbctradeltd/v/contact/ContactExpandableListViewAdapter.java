@@ -2,20 +2,16 @@ package com.example.xps.hbctradeltd.v.contact;
 
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.xps.hbctradeltd.R;
-import com.example.xps.hbctradeltd.d.bean.ContactUserBean;
-import com.jude.utils.JUtils;
+import com.example.xps.hbctradeltd.d.bean.UserList;
 
 import java.util.HashMap;
 import java.util.List;
@@ -23,11 +19,12 @@ import java.util.Map;
 
 
 public class ContactExpandableListViewAdapter extends BaseExpandableListAdapter {
-    Map<String, List<ContactUserBean>> parentDataset = new HashMap<>();
+    Map<String, List<UserList.ReturnBodyBean>> parentDataset = new HashMap<>();
+    UserList.ReturnBodyBean.StaffBean staffBean;
     Context context;
     private String[] parentList;
 
-    public ContactExpandableListViewAdapter(Context context, Map<String, List<ContactUserBean>> dataset, String[] parentList) {
+    public ContactExpandableListViewAdapter(Context context, Map<String, List<UserList.ReturnBodyBean>> dataset, String[] parentList) {
         this.context = context;
         this.parentDataset = dataset;
         this.parentList = parentList;
@@ -94,8 +91,9 @@ public class ContactExpandableListViewAdapter extends BaseExpandableListAdapter 
     @Override
     public View getChildView(int parentPos, int childPos, boolean b, View view, ViewGroup viewGroup) {
 
-        List<ContactUserBean> childs = parentDataset.get(parentList[parentPos]);
-        final ContactUserBean contactUserBean = childs.get(childPos);
+        List<UserList.ReturnBodyBean> childs = parentDataset.get(parentList[parentPos]);
+        final UserList.ReturnBodyBean contactUserBean = childs.get(childPos);
+//        staffBean= (UserList.ReturnBodyBean.StaffBean) contactUserBean.getStaff();
 
         if (view == null) {
             LayoutInflater inflater =
@@ -116,7 +114,7 @@ public class ContactExpandableListViewAdapter extends BaseExpandableListAdapter 
             }
         });
 
-        text.setText(childs.get(childPos).getUserId());
+        text.setText(childs.get(childPos).getD_id());
         return view;
     }
 

@@ -53,6 +53,24 @@ public class UserList {
 
     public static class ReturnBodyBean {
 
+        String userId = "";
+        boolean isChecked = false;
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+
+        public boolean isChecked() {
+            return isChecked;
+        }
+
+        public void setChecked(boolean checked) {
+            isChecked = checked;
+        }
 
         @Override
         public String toString() {
