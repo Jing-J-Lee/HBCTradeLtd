@@ -11,43 +11,45 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.xps.hbctradeltd.R;
+import com.example.xps.hbctradeltd.d.bean.DepartmentInfo;
 import com.example.xps.hbctradeltd.d.bean.UserList;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 
 public class ContactExpandableListViewAdapter extends BaseExpandableListAdapter {
-    Map<String, List<UserList.ReturnBodyBean>> parentDataset = new HashMap<>();
-    UserList.ReturnBodyBean.StaffBean staffBean;
+    ArrayList<DepartmentInfo> departmentInfos = new ArrayList<>();
     Context context;
-    private String[] parentList;
 
-    public ContactExpandableListViewAdapter(Context context, Map<String, List<UserList.ReturnBodyBean>> dataset, String[] parentList) {
+    public ContactExpandableListViewAdapter(Context context, ArrayList<DepartmentInfo> departmentInfos) {
         this.context = context;
-        this.parentDataset = dataset;
-        this.parentList = parentList;
+        this.departmentInfos = departmentInfos;
+
     }
 
     @Override
     public Object getChild(int parentPos, int childPos) {
-        return parentDataset.get(parentList[parentPos]).get(childPos);
+        return departmentInfos.get(parentPos).getStaffs().get(childPos);
     }
 
     @Override
     public int getGroupCount() {
-        return parentDataset.size();
+        return departmentInfos.size();
     }
 
     @Override
     public int getChildrenCount(int parentPos) {
-        return parentDataset.get(parentList[parentPos]).size();
+
+        return departmentInfos.get(parentPos).getStaffs().size();
     }
 
     @Override
     public Object getGroup(int parentPos) {
-        return parentDataset.get(parentList[parentPos]);
+
+        return departmentInfos.get(parentPos);
     }
 
     @Override
@@ -78,7 +80,7 @@ public class ContactExpandableListViewAdapter extends BaseExpandableListAdapter 
         view.setTag(R.layout.expand_item_child, -1);
         TextView text = (TextView) view.findViewById(R.id.tv_parent_title);
         ImageView iv_arrow = (ImageView) view.findViewById(R.id.iv_arrow);
-        text.setText(parentList[parentPos]);
+        text.setText(departmentInfos.get(parentPos).getD());
 
         if (!b)
             iv_arrow.setImageResource(R.drawable.arrow_down);
@@ -91,30 +93,31 @@ public class ContactExpandableListViewAdapter extends BaseExpandableListAdapter 
     @Override
     public View getChildView(int parentPos, int childPos, boolean b, View view, ViewGroup viewGroup) {
 
-        List<UserList.ReturnBodyBean> childs = parentDataset.get(parentList[parentPos]);
-        final UserList.ReturnBodyBean contactUserBean = childs.get(childPos);
-//        staffBean= (UserList.ReturnBodyBean.StaffBean) contactUserBean.getStaff();
+        DepartmentInfo childs = departmentInfos.get(parentPos);
+
+        final DepartmentInfo.Staff contactUserBean = childs.getStaffs().get(childPos);
 
         if (view == null) {
             LayoutInflater inflater =
                     (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             view = inflater.inflate(R.layout.expand_item_child, null);
         }
+
         view.setTag(R.layout.expand_item_parent, parentPos);
         view.setTag(R.layout.expand_item_child, childPos);
         TextView text = (TextView) view.findViewById(R.id.child_title);
 
         final CheckBox checkBox = (CheckBox) view.findViewById(R.id.cb_select);
-        checkBox.setChecked(contactUserBean.isChecked());
+        checkBox.setChecked(contactUserBean.ischeck());
 
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                contactUserBean.setChecked(checkBox.isChecked());
+                contactUserBean.setIscheck(checkBox.isChecked());
             }
         });
 
-        text.setText(childs.get(childPos).getD_id());
+        text.setText(contactUserBean.getTrue_name());
         return view;
     }
 
