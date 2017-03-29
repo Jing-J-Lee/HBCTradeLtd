@@ -13,30 +13,37 @@
         android:orientation="horizontal">
 
         <TextView
+            android:layout_weight="2.5"
             android:padding="30px"
             android:id="@+id/tv_conType"
-            style="@style/normalTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="40px"
+            android:textColor="@color/black"
             android:gravity="center"
+            android:singleLine="false"
             android:text="条目:" />
 
         <TextView
             android:padding="30px"
             android:id="@+id/tv_content"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/tv_conType"
-            android:layout_weight="0.8"
-            android:gravity="center_vertical" />
-
-        <CheckBox
-            android:id="@+id/cb_delected"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent" />
+            android:layout_weight="1"
+            android:gravity="center" />
+            <com.zhy.autolayout.AutoRelativeLayout
+                android:layout_weight="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <CheckBox
+                    android:id="@+id/cb_delected"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    />
+            </com.zhy.autolayout.AutoRelativeLayout>
 
     </com.zhy.autolayout.AutoLinearLayout>
 

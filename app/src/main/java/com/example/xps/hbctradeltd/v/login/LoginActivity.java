@@ -40,24 +40,6 @@ public class LoginActivity extends BaseActivity {
     @BindView(R.id.bt_login)
     Button btLogin;
 
-//    Handler handler=new Handler(){
-//
-//        @Override
-//        public void handleMessage(Message msg) {
-//            super.handleMessage(msg);
-//            switch (msg.what) {
-//                case LOGINSUCCESS:
-//                    loadingDialog.dismiss();
-//                    break;
-//
-//                case LOGINFAILD:
-//                    loadingDialog.dismiss();
-//                    break;
-//
-//            }
-//        }
-//    };
-
     @Override
     protected int getLayout() {
 
@@ -129,6 +111,8 @@ public class LoginActivity extends BaseActivity {
                     SharedPreferencesUtil.setMsg("uid",loginResp.getReturn_body().getUid());
                     SharedPreferencesUtil.setMsg("userName",loginResp.getReturn_body().getTrue_name());
                     SharedPreferencesUtil.setMsg("nickName",loginResp.getReturn_body().getNickname());
+                    SharedPreferencesUtil.setMsg("phone",loginResp.getReturn_body().getMob_phone());
+                    Log.e("ss","phone "+loginResp.getReturn_body().getMob_phone());
                     SharedPreferencesUtil.setLogin(true);
                     loadingDialog.dismiss();
                     ToastShow.getInstance(LoginActivity.this).toastShow(loginResp.getReturn_msg());

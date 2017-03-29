@@ -11,6 +11,7 @@ import com.example.xps.hbctradeltd.R;
 import com.example.xps.hbctradeltd.c.AppCommond;
 import com.example.xps.hbctradeltd.v.BaseActivity;
 import com.example.xps.hbctradeltd.v.login.ResetPassActivity;
+import com.example.xps.hbctradeltd.v.utils.SharedPreferencesUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,7 +40,9 @@ public class UserInfoActivity extends BaseActivity {
 
     @Override
     protected void setData() {
-
+        tvName.setText("姓名:"+SharedPreferencesUtil.getMsg("userName"));
+        tvPhonenumber.setText("手机号:"+SharedPreferencesUtil.getMsg("phone"));
+        tvTitle.setText("职称:"+SharedPreferencesUtil.getMsg("nickName"));
     }
 
     @Override
@@ -59,9 +62,7 @@ public class UserInfoActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.bt_resetpass:
-
                 startActivity(new Intent(this, ResetPassActivity.class));
-
                 break;
         }
     }

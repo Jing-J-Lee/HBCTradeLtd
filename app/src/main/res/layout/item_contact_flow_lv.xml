@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.zhy.autolayout.AutoFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp">
+        <com.zhy.autolayout.AutoLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="20px"
+            >
+            <TextView
+                android:id="@+id/suggest"
+                android:layout_gravity="top"
+                android:layout_marginLeft="10px"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:text="合同简介:"
+                android:textSize="18sp"
+                />
+
+            <TextView
+
+                android:id="@+id/suggest_detail"
+                android:layout_gravity="top"
+                android:lines="2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="top"
+                android:text="发起人"
+                android:textSize="18sp"
+                android:textColor="@color/black"
+                />
+        </com.zhy.autolayout.AutoLinearLayout>
+
+        <ImageView
+            android:id="@+id/suggest_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/agree"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="10dp"
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_gravity="bottom"
+            android:background="#35000000"></View>
+    </com.zhy.autolayout.AutoFrameLayout>
+
+</LinearLayout>

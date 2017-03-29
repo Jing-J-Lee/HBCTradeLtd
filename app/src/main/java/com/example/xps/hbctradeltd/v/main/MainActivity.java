@@ -33,6 +33,7 @@ import com.example.xps.hbctradeltd.c.ContractNetWork;
 import com.example.xps.hbctradeltd.c.UserNetWork;
 import com.example.xps.hbctradeltd.d.bean.ContractList;
 import com.example.xps.hbctradeltd.d.bean.LoginResp;
+import com.example.xps.hbctradeltd.v.contact.ContactDetailActivity;
 import com.example.xps.hbctradeltd.v.folder.FolderActivity;
 import com.example.xps.hbctradeltd.v.login.LoginActivity;
 import com.example.xps.hbctradeltd.v.user.UserInfoActivity;
@@ -67,24 +68,24 @@ public class MainActivity extends AppCompatActivity
     int mElevation = 5;
     private ViewOutlineProvider mOutlineProviderCircle;
 
-    Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-
-            if (msg.what == 1) {
+//    Handler handler = new Handler() {
+//        @Override
+//        public void handleMessage(Message msg) {
+//            super.handleMessage(msg);
+//
+//            if (msg.what == 1) {
 //                ArrayList<String> l = new ArrayList<>();
 //                l.add("1");
 //                l.add("2");
 //                l.add("3");
 //                adapter.adddata(l);
-                swipeRefreshLayout.setRefreshing(false);
-            } else if (msg.what == 0) {
-                swipeRefreshLayout.setRefreshing(false);
-            }
-        }
-
-    };
+//                swipeRefreshLayout.setRefreshing(false);
+//            } else if (msg.what == 0) {
+//                swipeRefreshLayout.setRefreshing(false);
+//            }
+//        }
+//
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,16 +114,6 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        ArrayList<String> list = new ArrayList<>();
-//        list.add("1");
-//        list.add("2");
-//        list.add("3");
-//        list.add("1");
-//        list.add("2");
-//        list.add("3");
-//        list.add("1");
-//        list.add("2");
-//        list.add("3");
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -134,7 +125,7 @@ public class MainActivity extends AppCompatActivity
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setColorScheme(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
+        swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -168,17 +159,12 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         int id = item.getItemId();
-
         if (id == R.id.action_add) {
             startActivity(new Intent(this, FolderActivity.class));
         }
-
         return super.onOptionsItemSelected(item);
-
     }
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -188,32 +174,31 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         getMenuInflater().inflate(R.menu.main_menu, menu);
-
         return true;
     }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
         if (id == R.id.nav_info) {//个人信息
-            startActivity(new Intent(this, UserInfoActivity.class));
+            if (SharedPreferencesUtil.isLogin()) {
+                startActivity(new Intent(this, UserInfoActivity.class));
+            }else {
+                ToastShow.getInstance(this).toastShow("请先登录");
+            }
+//            startActivity(new Intent(this, UserInfoActivity.class));
         } else if (id == R.id.nav_gallery) {//退出登录
             logOut();
+        }else if (id==R.id.nav_us){//关于我们
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
     @OnClick({R.id.tv_contract_all, R.id.tv_contract_incompleted, R.id.tv_contract_completed})
     public void onClick(View view) {
         switch (view.getId()) {
@@ -231,17 +216,19 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
     }
-
     void resetLable() {
         tvContractAll.setTextColor(Color.BLACK);
         tvContractIncompleted.setTextColor(Color.BLACK);
         tvContractCompleted.setTextColor(Color.BLACK);
     }
-
     @Override
     public void onRefresh() {
 //        handler.sendEmptyMessageDelayed(0, 3000);
+        getContactList();
+        swipeRefreshLayout.setRefreshing(false);
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private class ElevationViewOutlineProvider extends ViewOutlineProvider {
@@ -282,24 +269,31 @@ public class MainActivity extends AppCompatActivity
         ContractNetWork.getContract(SharedPreferencesUtil.getMsg("uid"), new Subscriber<ContractList>() {
             @Override
             public void onCompleted() {
-
             }
 
             @Override
             public void onError(Throwable e) {
-
+                Log.e("ss","err"+e);
             }
 
             @Override
             public void onNext(ContractList contractList) {
-                Log.e("ss",contractList.toString());
-
+//                Log.e("ss",contractList.toString());
                 if (contractList.getReturn_code().equals("SUCCESS")) {
-                    List<ContractList.ReturnBodyBean> return_body = contractList.getReturn_body();
+                    final List<ContractList.ReturnBodyBean> return_body = contractList.getReturn_body();
+
                     adapter = new ContractAdapterMain(getApplicationContext(),return_body);
 //                    adapter.adddata(return_body);
                     recyclerView.setAdapter(adapter);
 //                    adapter.notifyDataSetChanged();
+                    adapter.setOnItemClickListener(new ContractAdapterMain.OnRecyclerViewItemClickListener() {
+                        @Override
+                        public void onItemClick(View view, ContractList.ReturnBodyBean data) {
+                            Bundle bundle=new Bundle();
+                            bundle.putSerializable("data", data);
+                            startActivity(new Intent(MainActivity.this, ContactDetailActivity.class).putExtras(bundle));
+                        }
+                    });
                 }
             }
         });

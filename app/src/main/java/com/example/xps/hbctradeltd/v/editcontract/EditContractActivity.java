@@ -2,6 +2,8 @@ package com.example.xps.hbctradeltd.v.editcontract;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +15,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -23,11 +26,13 @@ import com.example.xps.hbctradeltd.c.AppCommond;
 import com.example.xps.hbctradeltd.c.ContractNetWork;
 import com.example.xps.hbctradeltd.d.adapter.MyAdapter;
 import com.example.xps.hbctradeltd.d.bean.ContrackItem;
+import com.example.xps.hbctradeltd.d.bean.ContractInfoBean;
 import com.example.xps.hbctradeltd.d.bean.ContractTypeDetailResp;
 import com.example.xps.hbctradeltd.d.bean.ContractTypeResp;
 import com.example.xps.hbctradeltd.v.BaseActivity;
 import com.example.xps.hbctradeltd.v.contact.ContactActivity;
 import com.example.xps.hbctradeltd.v.utils.SharedPreferencesUtil;
+import com.example.xps.hbctradeltd.v.utils.ToastShow;
 import com.example.xps.hbctradeltd.v.view.CustomDialog;
 import com.example.xps.hbctradeltd.v.view.HBCListView;
 import com.zhy.autolayout.AutoLinearLayout;
@@ -93,6 +98,8 @@ public class EditContractActivity extends BaseActivity {
     MyAdapter mAdapter;
     ArrayList<ContrackItem> list;
     ContrackItem item;
+    StringBuilder sb;
+    ContractInfoBean bean;
 
     public static int FROM_ITEM = 0x1;
     public static int FROM_LIST = 0x2;
@@ -101,30 +108,6 @@ public class EditContractActivity extends BaseActivity {
     public static int TO_ACTIVITY = 0x4;
     private static final int SUCCESS = 0;
     private static final int DETAILSUCCESS = 1;
-
-    Handler handler=new Handler(){
-
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-
-                case SUCCESS:
-//                    Log.e("ss",dataBean.getType_name());
-                    mAdapter = new MyAdapter(EditContractActivity.this, data);
-                    lv.setAdapter(mAdapter);
-                    mAdapter.notifyDataSetChanged();
-                    break;
-
-                case DETAILSUCCESS:
-                    adapter = new ContractItemAdapter(EditContractActivity.this, list);
-                    contractItemLV.setAdapter(adapter);
-
-                    break;
-            }
-        }
-    };
-
 
     @Override
     protected int getLayout() {
@@ -198,6 +181,12 @@ public class EditContractActivity extends BaseActivity {
 
     @Override
     protected void init() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CUPCAKE) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.
+                    SOFT_INPUT_ADJUST_PAN);
+        }
+        //锁定屏幕
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ButterKnife.bind(this);
         EventBus.getDefault().register(this);
 
@@ -205,7 +194,10 @@ public class EditContractActivity extends BaseActivity {
 
     @Override
     public void onReciveEvent(AppCommond a) {
+        if (a.getInfo().equals("a")) {
 
+            finish();
+        }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -234,6 +226,7 @@ public class EditContractActivity extends BaseActivity {
                 item.setKey(keyRecevice);
             }
         }
+
         adapter.notifyDataSetChanged();
     }
 
@@ -249,26 +242,64 @@ public class EditContractActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.tv_send:
-                startActivity(new Intent(this, ContactActivity.class));
+                if (mContractType.getText().length()<=0) {
+                    ToastShow.getInstance(EditContractActivity.this).toastShow("请选择合同类型");
+                }else if (tvContractNameValue.getText().length()<=0){
+                    ToastShow.getInstance(EditContractActivity.this).toastShow("请输入合同名称");
+                }else if (tvContractSummeryValue.getText().length()<=0){
+                    ToastShow.getInstance(EditContractActivity.this).toastShow("请输入合同简介");
+                }
+                else {
+                    sb=new StringBuilder();
+                    sb.append("{");
+                    for (int i = 0; i < list.size(); i++) {
+                        ContrackItem  item = (ContrackItem) adapter.getItem(i);
+                            sb.append("\""+item.getKey().substring(0,item.getKey().length()-1)+"\""+":");
+                            sb.append("\""+item.getValue()+"\""+",");
+                    }
+                    String substring = sb.toString().substring(0, sb.toString().length() - 1);
+                    sb=new StringBuilder();
+                    sb.append(substring+"}");
+//                    sb.append("}");
+//                    Log.e("ss","sb"+sb);
+                    bean=new ContractInfoBean();
+                    bean.setType(mContractType.getText().toString());
+                    bean.setName(tvContractNameValue.getText().toString());
+                    bean.setTitle(tvContractSummeryValue.getText().toString());
+                    bean.setField(sb.toString());
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable("data",bean);
+                    Log.e("ss","filed "+bean.getField());
+//                    Log.e("ss",bean.getName()+","+bean.getField()+","+bean.getIn()+","+bean.getTitle()+","+bean.getType());
+                    startActivity(new Intent(this, ContactActivity.class).putExtras(bundle));
+                    bean=new ContractInfoBean();
+                }
                 break;
             case R.id.frame_AddPicAttach:
                 break;
             case R.id.tv_edititems:
 
                 if (tvEdititems.getText().equals("编辑")) {
-                    showEdit();
+                    if (mContractType.getText().length()<=0) {
+                        ToastShow.getInstance(EditContractActivity.this).toastShow("请选择合同类型");
+                    }else {
+                        showEdit();
+                    }
                 } else if (tvEdititems.getText().equals("删除")) {
                     adapter.deleteItem();
                 }
 
                 break;
             case R.id.add_newcontract:
-                EditListDone();
-
-                Bundle bundleAddcontract = new Bundle();
-                bundleAddcontract.putInt("FROM_TYPE", FROM_ADD);
-                bundleAddcontract.putInt("TO", TO_DIALOG);
-                EventBus.getDefault().post(bundleAddcontract);
+                if (mContractType.getText().length()<=0) {
+                    ToastShow.getInstance(EditContractActivity.this).toastShow("请选择合同类型");
+                }else {
+                    EditListDone();
+                    Bundle bundleAddcontract = new Bundle();
+                    bundleAddcontract.putInt("FROM_TYPE", FROM_ADD);
+                    bundleAddcontract.putInt("TO", TO_DIALOG);
+                    EventBus.getDefault().post(bundleAddcontract);
+                }
 
                 break;
             case R.id.re_ContractSummery:
@@ -340,7 +371,7 @@ public class EditContractActivity extends BaseActivity {
 
             @Override
             public void onNext(ContractTypeResp contractTypeResp) {
-                Log.e("ss",contractTypeResp.toString());
+//                Log.e("ss",contractTypeResp.toString());
                 if (contractTypeResp.getReturn_code().equals("SUCCESS")) {
                     List<ContractTypeResp.ReturnBodyBean> return_body = contractTypeResp.getReturn_body();
                     data=new ArrayList<>();
@@ -348,7 +379,10 @@ public class EditContractActivity extends BaseActivity {
                         data.add(return_body.get(i));
 //                        Log.e("ss","type"+return_body.get(i).getType_name());
                     }
-                    handler.sendEmptyMessage(SUCCESS);
+
+                    mAdapter = new MyAdapter(EditContractActivity.this, data);
+                    lv.setAdapter(mAdapter);
+                    mAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -357,29 +391,38 @@ public class EditContractActivity extends BaseActivity {
     void getContractTypeDetail(String tid){
         ContractNetWork.getContractTypeDetail(tid, new Subscriber<ContractTypeDetailResp>() {
             @Override
-            public void onCompleted() {
-
-            }
+            public void onCompleted() {}
 
             @Override
-            public void onError(Throwable e) {
-
-            }
+            public void onError(Throwable e) {}
 
             @Override
             public void onNext(ContractTypeDetailResp contractTypeDetailResp) {
 
-                Log.e("ss","typeDetail"+contractTypeDetailResp.toString());
+//                Log.e("ss","typeDetail"+contractTypeDetailResp.toString());
                 if (contractTypeDetailResp.getReturn_code().equals("SUCCESS")) {
+//                    sb=new StringBuilder();
+//                    sb.append("{");
                     list=new ArrayList<ContrackItem>();
                     List<String> return_body = contractTypeDetailResp.getReturn_body();
                     for (int i = 0; i < return_body.size(); i++) {
                         item=new ContrackItem();
-                        item.setKey(return_body.get(i));
+                        item.setKey(return_body.get(i)+":");
                         item.setValue("测试");
                         list.add(item);
+//                        if (i<return_body.size()){
+//                            sb.append("\""+return_body.get(i)+"\""+":");
+//                            sb.append("\""+item.getValue()+"\""+",");
+//                        }else {
+//                            sb.append("\""+item.getValue()+"\"");
+//                        }
                     }
-                    handler.sendEmptyMessage(DETAILSUCCESS);
+//                    sb.append("}");
+//                    Log.e("ss","sb "+sb.toString());
+                    adapter = new ContractItemAdapter(EditContractActivity.this, list);
+                    contractItemLV.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+
                 }
             }
         });

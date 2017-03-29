@@ -32,7 +32,7 @@
     </com.zhy.autolayout.AutoRelativeLayout>
 
     <ExpandableListView
-        android:layout_above="@+id/tv_send"
+        android:layout_above="@id/tv_send"
         android:layout_below="@+id/title"
         android:groupIndicator="@null"
         android:id="@+id/expandablelistview"

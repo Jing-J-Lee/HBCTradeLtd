@@ -12,13 +12,8 @@ import android.widget.TextView;
 
 import com.example.xps.hbctradeltd.R;
 import com.example.xps.hbctradeltd.d.bean.DepartmentInfo;
-import com.example.xps.hbctradeltd.d.bean.UserList;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 
 public class ContactExpandableListViewAdapter extends BaseExpandableListAdapter {
     ArrayList<DepartmentInfo> departmentInfos = new ArrayList<>();
@@ -43,7 +38,6 @@ public class ContactExpandableListViewAdapter extends BaseExpandableListAdapter 
 
     @Override
     public int getChildrenCount(int parentPos) {
-
         return departmentInfos.get(parentPos).getStaffs().size();
     }
 
@@ -110,7 +104,6 @@ public class ContactExpandableListViewAdapter extends BaseExpandableListAdapter 
 
         final CheckBox checkBox = (CheckBox) view.findViewById(R.id.cb_select);
         checkBox.setChecked(contactUserBean.ischeck());
-
         checkBox.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

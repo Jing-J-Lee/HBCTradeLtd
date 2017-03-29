@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <include layout="@layout/actionbar"
+             android:id="@+id/actionbar"
+        />
+
+    <!--<ListView-->
+    <!--android:id="@+id/contact_lv"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:scrollbars="none"-->
+    <!--android:layout_below="@id/actionbar"-->
+    <!--&gt;-->
+
+    <!--</ListView>-->
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/contact_flow_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="20px"
+        >
+        <TextView
+            android:background="@color/toolbarcolor"
+            android:id="@+id/tv_item"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1:钢铁厂财务合同"
+            android:padding="20px"
+            android:textColor="@color/white" />
+        <ListView
+            android:id="@+id/contact_flow_lv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:divider="@color/transparent"
+            >
+
+
+        </ListView>
+
+        <!--<com.zhy.autolayout.AutoFrameLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<com.zhy.autolayout.AutoLinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<com.zhy.autolayout.AutoLinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="vertical">-->
+                    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_gravity="center_vertical"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:src="@drawable/head"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="45px"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="45px" />&ndash;&gt;-->
+                    <!--<com.zhy.autolayout.AutoLinearLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="60px"-->
+                        <!--android:layout_margin="10px"-->
+                        <!--android:orientation="horizontal"-->
+                        <!--&gt;-->
+                        <!--<TextView-->
+                            <!--android:layout_marginLeft="10px"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:gravity="center_vertical"-->
+                            <!--android:text="合同编号:"-->
+                            <!--/>-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/contract_flow_person"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="match_parent"-->
+                            <!--android:gravity="center_vertical"-->
+                            <!--android:text="56451235694655"-->
+                            <!--android:textColor="@color/black"-->
+                            <!--/>-->
+                    <!--</com.zhy.autolayout.AutoLinearLayout>-->
+                    <!---->
+                    <!--<com.zhy.autolayout.AutoRelativeLayout-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="wrap_content">-->
+                        <!--<ImageView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:src="@drawable/agree"-->
+                            <!--android:layout_alignParentRight="true"-->
+                            <!--android:layout_marginRight="20px"-->
+                            <!--/>-->
+                        <!---->
+                    <!--</com.zhy.autolayout.AutoRelativeLayout>-->
+
+                <!--</com.zhy.autolayout.AutoLinearLayout>-->
+
+                <!--<com.zhy.autolayout.AutoLinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="60px"-->
+                    <!--android:layout_margin="10px"-->
+                    <!--android:orientation="horizontal">-->
+                    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_gravity="center_vertical"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:src="@drawable/time"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="45px"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="45px" />&ndash;&gt;-->
+                    <!--<TextView-->
+                        <!--android:layout_marginLeft="10px"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="付款方式:"-->
+                        <!--/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/contract_flow_time"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="现金支付"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--/>-->
+
+                <!--</com.zhy.autolayout.AutoLinearLayout>-->
+                <!--<com.zhy.autolayout.AutoLinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="60px"-->
+                    <!--android:layout_margin="10px"-->
+                    <!--android:orientation="horizontal">-->
+                    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_gravity="center_vertical"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:src="@drawable/time"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="45px"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="45px" />&ndash;&gt;-->
+                    <!--<TextView-->
+                        <!--android:layout_marginLeft="10px"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="需要改账名称:"-->
+                        <!--/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/contract_flow_count"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="现金支付"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--/>-->
+
+                <!--</com.zhy.autolayout.AutoLinearLayout>-->
+                <!--<com.zhy.autolayout.AutoLinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="60px"-->
+                    <!--android:layout_margin="10px"-->
+                    <!--android:orientation="horizontal">-->
+                    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_gravity="center_vertical"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:src="@drawable/time"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="45px"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="45px" />&ndash;&gt;-->
+                    <!--<TextView-->
+                        <!--android:layout_marginLeft="10px"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="合同期限:"-->
+                        <!--/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/contract_flow_data"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="5年"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--/>-->
+
+                <!--</com.zhy.autolayout.AutoLinearLayout>-->
+                <!--<com.zhy.autolayout.AutoLinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="60px"-->
+                    <!--android:layout_margin="10px"-->
+                    <!--android:orientation="horizontal">-->
+                    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_gravity="center_vertical"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:src="@drawable/time"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="45px"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="45px" />&ndash;&gt;-->
+                    <!--<TextView-->
+                        <!--android:layout_marginLeft="10px"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="合同价款:"-->
+                        <!--/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/contract_money"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:gravity="center_vertical"-->
+                        <!--android:text="10万元"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--/>-->
+
+                <!--</com.zhy.autolayout.AutoLinearLayout>-->
+
+                <!--<com.zhy.autolayout.AutoLinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="120px"-->
+                    <!--android:layout_margin="10px"-->
+                    <!--android:orientation="horizontal">-->
+
+                    <!--&lt;!&ndash;<ImageView&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_gravity="top"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:src="@drawable/resume"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_width="40px"&ndash;&gt;-->
+                    <!--&lt;!&ndash;android:layout_height="40px" />&ndash;&gt;-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_gravity="top"-->
+                        <!--android:layout_marginLeft="10px"-->
+                        <!--android:gravity="top"-->
+                        <!--android:text="合同附件内容:"-->
+                        <!--/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/contract_des"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="match_parent"-->
+                        <!--android:layout_gravity="top"-->
+                        <!--android:gravity="top"-->
+                        <!--android:lines="2"-->
+                        <!--android:text="发起人"-->
+                        <!--android:textColor="@color/black"-->
+                        <!--/>-->
+
+                <!--</com.zhy.autolayout.AutoLinearLayout>-->
+
+            <!--</com.zhy.autolayout.AutoLinearLayout>-->
+        <!--</com.zhy.autolayout.AutoFrameLayout>-->
+    </com.zhy.autolayout.AutoLinearLayout>
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:id="@+id/contact_btn_rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        >
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/reject"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/red"
+            >
+
+            <ImageView
+                android:id="@+id/reject_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/rejected"
+                android:layout_centerInParent="true"
+                />
+        </com.zhy.autolayout.AutoRelativeLayout>
+        <com.zhy.autolayout.AutoRelativeLayout
+            android:id="@+id/agree"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/dialog_blue"
+            >
+
+            <ImageView
+                android:id="@+id/accept"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/agree"
+                android:layout_centerInParent="true"
+                />
+        </com.zhy.autolayout.AutoRelativeLayout>
+
+    </com.zhy.autolayout.AutoLinearLayout>
+
+
+</com.zhy.autolayout.AutoRelativeLayout>

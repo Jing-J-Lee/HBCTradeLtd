@@ -105,20 +105,28 @@
             <com.zhy.autolayout.AutoLinearLayout
                 android:id="@+id/re_ContractName"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/ll_item_height"
+                android:layout_height="wrap_content"
                 android:background="@drawable/item_touch"
                 android:clickable="true"
+                android:orientation="horizontal"
                 android:padding="40px">
 
                 <TextView
+                    android:layout_weight="3"
                     android:id="@+id/tv_contractName"
-                    style="@style/normalTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="40px"
+                    android:textColor="@color/black"
+                    android:gravity="center"
                     android:text="合同名称:" />
 
                 <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/tv_contractName2"
-                    style="@style/normalTextView"
-                    android:text="合同名称" />
+                    />
 
             </com.zhy.autolayout.AutoLinearLayout>
 
@@ -140,16 +148,35 @@
                 android:gravity="top"
                 android:orientation="horizontal"
                 android:padding="40px">
-
                 <TextView
+                    android:layout_weight="3"
                     android:id="@+id/tv_contractSummery"
-                    style="@style/normalTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="40px"
+                    android:textColor="@color/black"
+                    android:gravity="center"
                     android:text="合同简介:" />
 
                 <TextView
+                    android:layout_weight="1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/tv_contractSummery2"
-                    style="@style/normalTextView"
-                    android:text="内容" />
+                    />
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_contractSummery"-->
+                    <!--android:textSize="40px"-->
+                    <!--android:textColor="@color/black"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:text="合同简介:" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_contractSummery2"-->
+                    <!--style="@style/normalTextView"-->
+                    <!--android:text="内容" />-->
 
             </com.zhy.autolayout.AutoLinearLayout>
 

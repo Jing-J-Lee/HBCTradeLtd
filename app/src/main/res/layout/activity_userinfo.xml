@@ -34,6 +34,15 @@
 
         </com.zhy.autolayout.AutoRelativeLayout>
 
+        <ImageView
+            android:layout_width="200px"
+            android:layout_height="200px"
+            android:src="@drawable/user_head"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="150px"
+            />
+
     </com.zhy.autolayout.AutoRelativeLayout>
 
     <com.zhy.autolayout.AutoRelativeLayout
@@ -95,7 +104,7 @@
     <Button
         android:id="@+id/bt_resetpass"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="120px"
         android:layout_gravity="center"
         android:layout_marginTop="40px"
         android:background="@drawable/logout_bt_selec"
